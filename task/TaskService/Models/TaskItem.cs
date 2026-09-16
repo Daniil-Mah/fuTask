@@ -1,8 +1,10 @@
 namespace TaskService.Models;
 
 public enum TaskStatus
-{
-    New,Inprogres,Done
+{   
+    New,
+    Inprogres,
+    Done
 }
 public class TaskItem
 {
