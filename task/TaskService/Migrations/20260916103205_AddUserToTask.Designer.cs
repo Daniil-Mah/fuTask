@@ -11,8 +11,8 @@ using TaskService.Data;
 namespace TaskService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260915194917_AddUser")]
-    partial class AddUser
+    [Migration("20260916103205_AddUserToTask")]
+    partial class AddUserToTask
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,24 +29,23 @@ namespace TaskService.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Task")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("TaskService.User", b =>
+            modelBuilder.Entity("TaskService.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,18 +57,7 @@ namespace TaskService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
-                });
-
-            modelBuilder.Entity("TaskService.Models.TaskItem", b =>
-                {
-                    b.HasOne("TaskService.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

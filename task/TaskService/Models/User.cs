@@ -1,4 +1,4 @@
-namespace TaskService;
+namespace TaskService.Models;
 
 public class User
 {
