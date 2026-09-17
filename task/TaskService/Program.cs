@@ -67,24 +67,4 @@ app.MapDelete("/api/task/{id}", async (Guid id, AppDbContext db) =>
     return Results.NoContent();
 });
 
-app.MapPost("/api/user/",async (CreateUser user, AppDbContext db) =>
-{
-    var IsUserExists = await db.Users.FirstOrDefaultAsync(u => u.Name == user.Name);
-    if (IsUserExists is not null )
-    {
-        return Results.BadRequest("User is already exists");
-    }
-    var NewUSer = new User{Id = Guid.NewGuid(), Name = user.Name};
-    db.Users.Add(NewUSer);
-    await db.SaveChangesAsync();
-    return Results.Ok(NewUSer);
-});
-
-app.MapGet("/api/user/",async(AppDbContext db) => await db.Users.ToArrayAsync());
-
-app.MapPost("/api/auth/register" , async(AppDbContext db) =>
-{
-    return "asdasd";
-});
-
 app.Run();
